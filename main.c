@@ -25,7 +25,7 @@ int parse_factor() {
         expr++;
         int result = parse_expression();
         skip_spaces();
-        if (*expr == ')') expr++; // Пропускаем ')'
+        if (*expr == ')') expr++; 
         return result;
     }
     return parse_number();
@@ -77,3 +77,5 @@ int main() {
     printf("%d\n", result);
     return 0;
 }
+
+
