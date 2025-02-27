@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
 
-SRC = src/calculator.c
+SRC = src/main.c 
 OBJ = $(SRC:.c=.o)
 OUT = app.exe
 
