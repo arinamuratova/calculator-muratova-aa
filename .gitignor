@@ -1,6 +1,0 @@
-*.o
-*.exe
-*.out
-build/
-tests/unit/*.exe
-tests/integration/*.exe
