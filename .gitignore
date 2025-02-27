@@ -1,7 +1,13 @@
-main
-*.o
-*.exe
-*.out
-build/
-tests/unit/*.exe
-tests/integration/*.exe
+# Игнорировать артефакты сборки
+/build/
+app.exe
+unit-tests.exe
+
+# Игнорировать папку или симлинк с googletest
+googletest/
+
+# Игнорировать IDE и другие временные файлы (если они есть)
+*.swp
+*.suo
+*.user
+*.DS_Store
