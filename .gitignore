@@ -1,13 +1,31 @@
-# Игнорировать артефакты сборки
+
 /build/
 app.exe
 unit-tests.exe
 
-# Игнорировать папку или симлинк с googletest
+*.o
+*.obj
+*.out
+
+
 googletest/
 
-# Игнорировать IDE и другие временные файлы (если они есть)
-*.swp
-*.suo
-*.user
-*.DS_Store
+*.swp      # Vim
+*.suo      # Visual Studio
+*.user     # Visual Studio
+*.DS_Store # macOS
+
+
+.vscode/               # VS Code
+.idea/                 # JetBrains CLion, PyCharm
+cmake-build-debug/     # CLion
+
+
+venv/                  # Виртуальное окружение Python
+pycache/           # Кешированные файлы Python
+*.pyc                  # Скомпилированные Python-файл# Игнорировать артефакты сборки
+/build/
+app.exe
+unit-tests.exe
+
+
