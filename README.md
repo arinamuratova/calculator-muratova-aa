@@ -1,32 +1,128 @@
-# Calculator in C
+# Calculator Application  
 
-This repository contains a project for a calculator implemented in the C language, with unit tests in C++ and integration tests in Python.
+## What has been done?  
 
-## What has been done?
-- A calculator has been implemented in C.
-- Unit tests have been added in C++ using the googletest framework.
-- Integration tests in Python are planned to be added.
+This project implements a console-based calculator that supports:  
+- Basic arithmetic operations: addition, subtraction, multiplication, and division.  
+- Floating-point numbers: an optional mode for decimal calculations.  
+- Parentheses: for controlling the order of operations.  
+- Error handling: warnings for division by zero, incorrect input, unrecognized characters, and mismatched parentheses.  
 
-## How to run?
-1. To build and run the calculator:
-  
-   make all  
-   make run
-   
-2. For testing:
-   - make run-unit-test for unit tests
-   - make run-integration-tests for integration tests (if available)
+### Key Features:  
+- Supports +, -, *, / operations.  
+- Switchable between integer and floating-point modes (--float).  
+- Recognizes expressions with parentheses, e.g., (2 + 3) * 5.  
+- Displays error messages for invalid input.  
 
-## How is it done?
-The calculator is implemented in C, unit tests are written using googletest, and integration tests will be written in Python.# calculator-muratova-aa
+Example expressions:  
+- 5 + 3 → 8  
+- 10 / 2 → 5  
+- 3 * (2 + 1) → 9  
+- 5.5 * 2 (in --float mode) → 11.0000  
 
-## Arithmetic Expression Evaluator
+## How to run/use it?  
 
-This program reads a mathematical expression from the standard input, processes it, and prints the computed result. It supports basic arithmetic operations including addition, subtraction, multiplication, and division, as well as parentheses for grouping operations.
+### 1. Clone the Repository  
 
-## Supported Operators
-- + (Addition)
-- - (Subtraction)
-- * (Multiplication)
-- / (Division)
-- Parentheses () for operation grouping
+Clone the repository using:  
+
+git clone https://github.com/your-username/calculator.git
+cd calculator
+
+### 2. Build the Application  
+
+Use the Makefile to build the project:  
+
+make 
+
+This will generate an executable file app.exe in the build directory.  
+
+### 3. Run the Calculator  
+
+#### Standard Mode (Integer Calculation):  
+
+./build/app.exe "5 + 3"
+
+Output:  
+
+8
+
+#### Floating-Point Mode:  
+
+./build/app.exe --float "5.5 * 2"
+
+Output:  
+
+11.0000 
+
+#### Error Handling Example  
+
+./build/app.exe "10 / 0"
+
+Output:  
+
+Ошибка: некорректное выражение 
+
+### 4. Run the Tests  
+
+The project includes unit tests and integration tests.  
+
+#### Run Unit Tests:  
+
+make run-tests 
+
+#### Run Integration Tests:  
+
+make run-integration-tests 
+
+## How it's made?  
+
+The calculator is implemented in C and processes mathematical expressions using parsing and computation logic.  
+
+### 1. Expression Parsing  
+
+The program analyzes the input string and identifies:  
+- Operands (integers and floating-point numbers).  
+- Operators (+, -, *, /).  
+- Parentheses for operation precedence.  
+
+### 2. Expression Evaluation  
+
+The program follows the PEMDAS rule (Parentheses, Exponents, Multiplication/Division, Addition/Subtraction):  
+1. Parentheses are evaluated first.  
+2. Then multiplication and division.  
+3. Finally, addition and subtraction.  
+
+It supports both integer and floating-point modes.  
+
+### 3. Error Handling  
+
+The program detects and handles errors such as:  
+- Invalid expressions (missing operators, unrecognized characters, mismatched parentheses).  
+- Division by zero.  
+- Loss of precision in floating-point mode.  
+
+### 4. Testing  
+
+- Unit tests: test individual functions (parsing, evaluation).  
+- Integration tests: test the full calculator with various inputs.  
+
+### Artifact: app.exe  
+
+The compiled project produces the executable app.exe, which can be run on any system with the required dependencies.  
+
+### Dependencies:  
+1. Make — for automated building.  
+2. GCC — C compiler.  
+3. Google Test — testing framework.  
+
+### Build and Test Commands:  
+
+Build the Project: 
+make build
+
+Run Unit Tests:
+make run-tests
+
+Run Integration Tests:  
+make run-integration-tests
