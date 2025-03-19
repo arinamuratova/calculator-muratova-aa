@@ -75,7 +75,7 @@ def test_large_number_multiplication():
     run_test(["./build/app.exe"], "200000000*2", 0, "400000000")
 
 def test_negative_numbers():
-    run_test(["./build/app.exe"], "-5 +  10 ", 0, "5")
+    run_test(["./build/app.exe"], "-5 +  10 ", 1)
 
 def test_parentheses():
     run_test(["./build/app.exe"], "(10 + 5) * 2", 0, "30")
@@ -119,7 +119,7 @@ def test_expression_with_mixed_operations():
     run_test(["./build/app.exe"], "5 + 3 * (2 + 3)", 0, "20")
 
 def test_expression_with_float_and_negative_numbers():
-    run_test(["./build/app.exe", "--float"], "-5 + 4.5", 0, "-0.5000", float_precision=4)
+    run_test(["./build/app.exe", "--float"], "0-5 + 4.5", 0, "-0.5000", float_precision=4)
 
 def test_expression_with_large_parentheses():
     run_test(["./build/app.exe"], "(1000 + 2000) * (10 + 5)", 0, "45000")

@@ -15,12 +15,6 @@ TEST(CalculatorTest, ParseNumberFloat)
     EXPECT_DOUBLE_EQ(parse_number(&p), 3.14);
 }
 
-// Тест для parse_factor (отрицательные числа)
-TEST(CalculatorTest, ParseFactorNegative)
-{
-    Parser p = { "-5", 0, INT_MODE };
-    EXPECT_EQ(parse_factor(&p), -5);
-}
 
 // Тест для parse_factor (число в скобках)
 TEST(CalculatorTest, ParseFactorParentheses)
@@ -58,7 +52,7 @@ TEST(CalculatorTest, ParseExprAddition)
 }
 
 // Тест для parse_expr (вычитание)
-TEST(CalculatorTest, ParseExprSubtraction)
+TEST(CalculatorTest, ParseExprSubtraction_Positive)
 {
     Parser p = { "10-3", 0, INT_MODE };
     EXPECT_EQ(parse_expr(&p), 7);
@@ -121,6 +115,40 @@ TEST(CalculatorTest, DivisionByZero)
         ::testing::ExitedWithCode(1), ::testing::MatchesRegex("Ошибка: некорректное выражение"));
 }
 
+TEST(CalculatorTest, ParseExprSubtraction)
+{
+    Parser p = { "0-3", 0, INT_MODE }; // Вместо "10-3"
+    EXPECT_EQ(parse_expr(&p), -3);
+}
+
+TEST(CalculatorTest, InvalidUnaryMinus)
+{
+    Parser p1 = { "-2+3", 0, INT_MODE };
+    Parser p2 = { "2+(-3)", 0, INT_MODE };
+
+    EXPECT_EXIT(parse_expr(&p1), ::testing::ExitedWithCode(1), "Ошибка: некорректное выражение");
+    EXPECT_EXIT(parse_expr(&p2), ::testing::ExitedWithCode(1), "Ошибка: некорректное выражение");}
+    
+TEST(CalculatorTest, ParseFactorInvalid)
+{
+    Parser p = { "+5", 0, INT_MODE }; // Нельзя начинать с +
+    EXPECT_EXIT(parse_factor(&p), ::testing::ExitedWithCode(1), "Ошибка: некорректное выражение");
+}
+TEST(CalculatorTest, DivisionByZeroFloat)
+{
+    Parser p = { "5/0.0", 0, FLOAT_MODE };
+    EXPECT_EXIT(parse_term(&p), ::testing::ExitedWithCode(1), "Ошибка: некорректное выражение");
+}
+TEST(CalculatorTest, ParseExprInvalid)
+{
+    Parser p1 = { "5++3", 0, INT_MODE };  // Два плюса подряд
+    Parser p2 = { "5*/3", 0, INT_MODE };  // Неверный порядок операторов
+    
+    EXPECT_EXIT(parse_expr(&p1), ::testing::ExitedWithCode(1), "Ошибка: некорректное выражение");
+    EXPECT_EXIT(parse_expr(&p2), ::testing::ExitedWithCode(1), "Ошибка: некорректное выражение");
+}
+    
+    
 // Простой тест для проверки GoogleTest
 TEST(SampleTest, BasicAssertions)
 {

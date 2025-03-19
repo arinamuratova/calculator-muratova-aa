@@ -32,7 +32,7 @@ double parse_number(Parser* p)
     skip_whitespace(p);
     int start = p->pos;
 
-    if (!isdigit(peek(p)) && peek(p) != '-') {
+    if (!isdigit(peek(p))) {
         error_exit(); // Некорректный ввод
     }
 
@@ -51,7 +51,7 @@ double parse_number(Parser* p)
     num_str[len] = '\0';
 
     double num = atof(num_str);
-    if (num < 0 || num > INT_MAX_VAL)
+    if (num > INT_MAX_VAL)
         error_exit();
 
     return num;
@@ -67,11 +67,11 @@ double parse_factor(Parser* p)
         if (get(p) != ')')
             error_exit();
         return result;
-    } else if (peek(p) == '-') {
-        get(p);
-        return -parse_factor(p);
-    } else {
+    } else if (isdigit(peek(p))) { 
         return parse_number(p);
+    } else {
+        error_exit();
+        return 0.0; 
     }
 }
 
@@ -121,6 +121,12 @@ double parse_expr(Parser* p)
 
         if (op == '+' || op == '-') {
             get(p);
+            skip_whitespace(p);
+
+            if (!isdigit(peek(p)) && peek(p) != '(') {
+                error_exit(); 
+            }
+
             double rhs = parse_term(p);
             result = (op == '+') ? result + rhs : result - rhs;
 
